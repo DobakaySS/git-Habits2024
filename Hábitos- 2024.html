@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Hábitos</title>
+    <link rel="stylesheet" href="habits-style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Registro de Hábitos - 2024</h1>
+    </header>
+
+    <section id="habits">
+        <h2>Hábitos</h2>
+        <div id="philosophy">
+            <h3>Filosofia</h3>
+            <p>Total de horas dedicadas: <span id="philosophyTotal">0</span></p>
+            <!-- Tabela -->
+            <div id="activityLog">
+                <div class="subtitleDropdown">
+                    <h4>Registro de Atividades</h4>
+                    <img id=philosophyChevron class="chevron"
+                        src="https://cdn-icons-png.flaticon.com/512/120/120890.png"
+                        onclick="toggleTable('philosophyTable','philosophyChevron')" alt="Chevron">
+                </div>
+                <table id="philosophyTable" display="table">
+                    <thead>
+                        <tr>
+                            <th>Hábito</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Horas Praticadas</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="philosophyTableBody"></tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div id="music">
+            <h3>Música</h3>
+            <p>Total de horas dedicadas: <span id="musicTotal">0</span></p>
+            <!-- Tabela -->
+            <div id="activityLog">
+                <div class="subtitleDropdown">
+                    <h4>Registro de Atividades</h4>
+                    <img id=musicChevron class="chevron" src="https://cdn-icons-png.flaticon.com/512/120/120890.png"
+                        onclick="toggleTable('musicTable','musicChevron')" alt="Chevron">
+                </div>
+                <table id="musicTable">
+                    <thead>
+                        <tr>
+                            <th>Hábito</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Horas Praticadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="musicTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="french">
+            <h3>Francês</h3>
+            <p>Total de horas dedicadas: <span id="frenchTotal">0</span></p>
+            <!-- Tabela -->
+            <div id="activityLog">
+                <div class="subtitleDropdown">
+                    <h4>Registro de Atividades</h4>
+                    <img id=frenchChevron class="chevron" src="https://cdn-icons-png.flaticon.com/512/120/120890.png"
+                        onclick="toggleTable('frenchTable','frenchChevron')" alt="Chevron">
+                </div>
+                <table id="frenchTable">
+                    <thead>
+                        <tr>
+                            <th>Hábito</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Horas Praticadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="frenchTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="exercise">
+            <h3>Exercícios Físicos</h3>
+            <p>Total de horas dedicadas: <span id="exerciseTotal">0</span></p>
+            <!-- Tabela -->
+            <div id="activityLogExercise">
+                <div class="subtitleDropdown">
+                    <h4>Registro de Atividades</h4>
+                    <img id=exerciseChevron class="chevron" src="https://cdn-icons-png.flaticon.com/512/120/120890.png"
+                        onclick="toggleTable('exerciseTable','exerciseChevron')" alt="Chevron">
+                </div>
+                <table id="exerciseTable">
+                    <thead>
+                        <tr>
+                            <th>Hábito</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Horas Praticadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="exerciseTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="programing">
+            <h3>Programação</h3>
+            <p>Total de horas dedicadas: <span id="programingTotal">0</span></p>
+            <!-- Tabela -->
+            <div id="activityLogPrograming">
+                <div class="subtitleDropdown">
+                    <h4>Registro de Atividades</h4>
+                    <img id=programingChevron class="chevron"
+                        src="https://cdn-icons-png.flaticon.com/512/120/120890.png"
+                        onclick="toggleTable('programingTable','programingChevron')" alt="Chevron">
+                </div>
+                <table id="programingTable">
+                    <thead>
+                        <tr>
+                            <th>Hábito</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Horas Praticadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="programingTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="addTime">
+        <h2>Adicionar Tempo</h2>
+        <form id="habitForm">
+            <label for="habitSelect">Escolha o Hábito:</label>
+            <select id="habitSelect" name="habit">
+                <option value="philosophy">Filosofia</option>
+                <option value="music">Música</option>
+                <option value="french">Francês</option>
+                <option value="exercise">Exercícios Físicos</option>
+                <option value="programing">Programação</option>
+            </select>
+
+            <label for="hoursInput">Horas dedicadas:</label>
+            <input type="number" id="hoursInput" name="hours" min="0" step="0.5" required>
+
+            <div id="addButton"><button type="submit">Adicionar</button></div>
+        </form>
+    </section>
+
+    <footer>
+        Atualizado em 28/12/2023
+        <nav>
+            <a href="https://www.linkedin.com/in/douglas-de-santos-04085a27a/">Linkedin </a>
+            <a href="https://github.com/DobakaySS">GitHub</a>
+        </nav>
+        &copy; 2023 - Douglas de Sá Santos
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        hideAllTables();//Garante que todas as tabelas começem escondidas
+
+        function editRow(tableId, rowIndex) {
+            // Falta Implementar a Lógica
+            alert(`Editar linha ${rowIndex} na tabela ${tableId}`);
+        }
+
+        function deleteRow(tableId, rowIndex) {
+            // Falta Implementar a Lógica
+            alert(`Excluir linha ${rowIndex} na tabela ${tableId}`);
+        }
+
+        function hideAllTables() {
+            document.getElementById("philosophyTable").classList.toggle("hidden");
+            document.getElementById("philosophyTable").classList.toggle("displayHidden");
+
+            document.getElementById("musicTable").classList.toggle("hidden");
+            document.getElementById("musicTable").classList.toggle("displayHidden");
+
+            document.getElementById("frenchTable").classList.toggle("hidden");
+            document.getElementById("frenchTable").classList.toggle("displayHidden");
+
+            document.getElementById("exerciseTable").classList.toggle("hidden");
+            document.getElementById("exerciseTable").classList.toggle("displayHidden");
+
+            document.getElementById("programingTable").classList.toggle("hidden");
+            document.getElementById("programingTable").classList.toggle("displayHidden");
+        }
+
+        function toggleTable(id, img) {
+            let table = document.getElementById(`${id}`);
+            let chevron = document.getElementById(`${img}`);
+
+            //Esse if descobre se o chevron está up ou down, e troca para respectiva imagem oposta caso ela seja clicada.
+            if (chevron.src.includes("https://cdn-icons-png.flaticon.com/512/120/120890.png")) {
+                chevron.src = "https://www.svgrepo.com/show/94134/up-chevron.svg"
+            } else {
+                chevron.src = "https://cdn-icons-png.flaticon.com/512/120/120890.png";
+            }
+
+            //Esconde ou mostra a tabela.
+            table.classList.toggle("hidden");
+            setTimeout(() => { table.classList.toggle("displayHidden"); }, 0); //ajustar o tempo da animação para 500 dps
+
+
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const habitTotals = {
+                philosophy: 0,
+                music: 0,
+                french: 0,
+                exercise: 0,
+                programing: 0,
+            };
+
+            const activityLogs = {
+                philosophy: [],
+                music: [],
+                french: [],
+                exercise: [],
+                programing: [],
+            };
+
+
+            function updateTotals() {
+                document.getElementById("philosophyTotal").innerText = habitTotals.philosophy.toFixed(1);
+                document.getElementById("musicTotal").innerText = habitTotals.music.toFixed(1);
+                document.getElementById("frenchTotal").innerText = habitTotals.french.toFixed(1);
+                document.getElementById("exerciseTotal").innerText = habitTotals.exercise.toFixed(1);
+                document.getElementById("programingTotal").innerText = habitTotals.programing.toFixed(1);
+
+                updateActivityTable("philosophy");
+                updateActivityTable("music");
+                updateActivityTable("french");
+                updateActivityTable("exercise");
+                updateActivityTable("programing");
+            }
+
+            function updateActivityTable(habit) {
+                const tableBody = document.getElementById(`${habit}TableBody`);
+                tableBody.innerHTML = "";
+                let habitName = "";
+
+                //Esse Switch é para passar o valor da variável habit (prenchida no form) para o nome em portugues que será inserido na tabela, usando a variável habitName
+                switch (habit) {
+                    case "philosophy":
+                        habitName = "Filosofia";
+                        break;
+                    case "french":
+                        habitName = "Francês";
+                        break;
+                    case "music":
+                        habitName = "Música";
+                        break;
+                    case "exercise":
+                        habitName = "Exercícios Físicos";
+                        break;
+                    case "programing":
+                        habitName = "Programação";
+                        break;
+
+                    default: //Em caso de algum erro.
+                        habitName = "Hábito";
+                }
+
+                activityLogs[habit].forEach((entry) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                    <td> ${habitName} </td>
+                    <td>${entry.date}</td>
+                    <td>${entry.time}</td>
+                    <td>${entry.hours.toFixed(1)}</td>
+                    <td>
+                        <button  onclick="editRow('philosophyTable', 2)">Editar</button>
+                        <button  onclick="deleteRow('philosophyTable', 2)">Excluir</button>
+                    </td>
+                `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            function handleFormSubmit(event) {
+                event.preventDefault();
+
+                const habit = document.getElementById("habitSelect").value;
+                const hours = parseFloat(document.getElementById("hoursInput").value);
+
+                if (isNaN(hours) || hours < 0) {
+                    alert("Por favor, insira um número válido de horas.");
+                    return;
+                }
+
+                const now = new Date();
+                const date = `${now.getDate().toString().padStart(2, "0")}/${(now.getMonth() + 1).toString().padStart(2, "0")}/${now.getFullYear()}`;
+                const time = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+
+                habitTotals[habit] += hours;
+                activityLogs[habit].push({
+                    habit,
+                    date,
+                    time,
+                    hours,
+                });
+
+                updateTotals();
+                document.getElementById("habitForm").reset();
+            }
+
+
+            document.getElementById("habitForm").addEventListener("submit", handleFormSubmit);
+            updateTotals();
+        });
+
+
+    </script>
+
+</body>
+
+</html>
