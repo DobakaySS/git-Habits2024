@@ -156,6 +156,11 @@
             <input type="number" id="hoursInput" name="hours" min="0" step="0.5" required>
 
             <div id="addButton"><button type="submit">Adicionar</button></div>
+            
+                <h2 class= "save" onclick="savingData()">Salvar<h1>
+            
+                <h2 class= "retrive" onclick="retriveDatainLocalStorage()">Recuperar<h1>
+            
         </form>
     </section>
 
@@ -167,20 +172,135 @@
         </nav>
         &copy; 2023 - Douglas de Sá Santos 22
     </footer>
-    
+
     <!-- JavaScript -->
     <script>
-        //Testando chave SSH; Quarta  vez.
-        hideAllTables();//Garante que todas as tabelas começem escondidas
+
+        //Global Variables
+        var habitTotals = {
+            philosophy: 0,
+            music: 0,
+            french: 0,
+            exercise: 0,
+            programing: 0,
+        };
+
+        var activityLogs = {
+            philosophy: [],
+            music: [],
+            french: [],
+            exercise: [],
+            programing: [],
+        };
+        //Global Variables
+
+        //Functions
+        function updateTotals() {
+            document.getElementById("philosophyTotal").innerText = habitTotals.philosophy.toFixed(1);
+            document.getElementById("musicTotal").innerText = habitTotals.music.toFixed(1);
+            document.getElementById("frenchTotal").innerText = habitTotals.french.toFixed(1);
+            document.getElementById("exerciseTotal").innerText = habitTotals.exercise.toFixed(1);
+            document.getElementById("programingTotal").innerText = habitTotals.programing.toFixed(1);
+
+            updateActivityTable("philosophy");
+            updateActivityTable("music");
+            updateActivityTable("french");
+            updateActivityTable("exercise");
+            updateActivityTable("programing");
+        }
+
+        function updateActivityTable(habit) { //Tem um erro na linha 240
+            const tableBody = document.getElementById(`${habit}TableBody`);
+            tableBody.innerHTML = "";
+            let habitName = "";
+
+            //Esse Switch é para passar o valor da variável habit (prenchida no form) para o nome em portugues que será inserido na tabela, usando a variável habitName
+            switch (habit) {
+                case "philosophy":
+                    habitName = "Filosofia";
+                    break;
+                case "french":
+                    habitName = "Francês";
+                    break;
+                case "music":
+                    habitName = "Música";
+                    break;
+                case "exercise":
+                    habitName = "Exercícios Físicos";
+                    break;
+                case "programing":
+                    habitName = "Programação";
+                    break;
+
+                default: //Em caso de algum erro.
+                    habitName = "Hábito";
+            }
+
+            activityLogs[habit].forEach((entry) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td> ${habitName} </td>
+                    <td>${entry.date}</td>
+                    <td>${entry.time}</td>
+                    <td>${entry.hours.toFixed(1)}</td>
+                    <td>
+                        <button  onclick="editRow(${habit}Table, 2)">Editar</button>
+                        <button  onclick="deleteRow(${habit}Table, 2)">Excluir</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
 
         function editRow(tableId, rowIndex) {
             //implementar lógica;
             alert(`Editar linha ${rowIndex} na tabela ${tableId}`);
         }
 
-        function deleteRow(tableId, rowIndex) {
-            // Falta Implementar a Lógica
-            alert(`Excluir linha ${rowIndex} na tabela ${tableId}`);
+
+        function deleteRow(tableId, rowIndex) { //Ainda não funciona por causa da lógica errada na função updateActivityTable
+            // Obter referência para a tabela
+            var table = document.getElementById(tableId);
+
+            // Verificar se o índice da linha está dentro dos limites da tabela
+            if (rowIndex >= 0 && rowIndex < table.rows.length) {
+                // Remover a linha
+                table.deleteRow(rowIndex);
+
+                alert(`Excluir linha ${rowIndex} na tabela ${tableId}`);
+            } else {
+                alert(`Índice de linha inválido para exclusão na tabela ${tableId}`);
+            }
+        }
+
+
+        function savingData() {
+
+            // Converter os objetos para strings JSON
+            var habitTotalsJSON = JSON.stringify(habitTotals);
+            var activityLogsJSON = JSON.stringify(activityLogs);
+
+            // Salvar dados no localStorage
+            localStorage.setItem("habitTotals", habitTotalsJSON);
+            localStorage.setItem("activityLogs", activityLogsJSON);
+
+            console.log("Dados salvos no localStorage com sucesso!");
+        }
+
+        function retriveDatainLocalStorage() {
+            var habitTotalsJSON = localStorage.getItem("habitTotals");
+            var activityLogsJSON = localStorage.getItem("activityLogs");
+
+            // Verificar se os dados existem antes de tentar fazer o parse
+            if (habitTotalsJSON && activityLogsJSON) {
+                habitTotals = JSON.parse(habitTotalsJSON);
+                activityLogs = JSON.parse(activityLogsJSON);
+
+                console.log("Dados recuperados do localStorage com sucesso!");
+            } else {
+                console.log("Dados não encontrados no localStorage. Usando valores padrão.");
+            }
+            updateTotals();
         }
 
         function hideAllTables() {
@@ -218,80 +338,14 @@
 
         }
 
+
+        //Functions
+
+
         document.addEventListener("DOMContentLoaded", function () {
-            const habitTotals = {
-                philosophy: 0,
-                music: 0,
-                french: 0,
-                exercise: 0,
-                programing: 0,
-            };
-
-            const activityLogs = {
-                philosophy: [],
-                music: [],
-                french: [],
-                exercise: [],
-                programing: [],
-            };
 
 
-            function updateTotals() {
-                document.getElementById("philosophyTotal").innerText = habitTotals.philosophy.toFixed(1);
-                document.getElementById("musicTotal").innerText = habitTotals.music.toFixed(1);
-                document.getElementById("frenchTotal").innerText = habitTotals.french.toFixed(1);
-                document.getElementById("exerciseTotal").innerText = habitTotals.exercise.toFixed(1);
-                document.getElementById("programingTotal").innerText = habitTotals.programing.toFixed(1);
 
-                updateActivityTable("philosophy");
-                updateActivityTable("music");
-                updateActivityTable("french");
-                updateActivityTable("exercise");
-                updateActivityTable("programing");
-            }
-
-            function updateActivityTable(habit) {
-                const tableBody = document.getElementById(`${habit}TableBody`);
-                tableBody.innerHTML = "";
-                let habitName = "";
-
-                //Esse Switch é para passar o valor da variável habit (prenchida no form) para o nome em portugues que será inserido na tabela, usando a variável habitName
-                switch (habit) {
-                    case "philosophy":
-                        habitName = "Filosofia";
-                        break;
-                    case "french":
-                        habitName = "Francês";
-                        break;
-                    case "music":
-                        habitName = "Música";
-                        break;
-                    case "exercise":
-                        habitName = "Exercícios Físicos";
-                        break;
-                    case "programing":
-                        habitName = "Programação";
-                        break;
-
-                    default: //Em caso de algum erro.
-                        habitName = "Hábito";
-                }
-
-                activityLogs[habit].forEach((entry) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                    <td> ${habitName} </td>
-                    <td>${entry.date}</td>
-                    <td>${entry.time}</td>
-                    <td>${entry.hours.toFixed(1)}</td>
-                    <td>
-                        <button  onclick="editRow('philosophyTable', 2)">Editar</button>
-                        <button  onclick="deleteRow('philosophyTable', 2)">Excluir</button>
-                    </td>
-                `;
-                    tableBody.appendChild(row);
-                });
-            }
 
             function handleFormSubmit(event) {
                 event.preventDefault();
@@ -315,17 +369,20 @@
                     time,
                     hours,
                 });
-
                 updateTotals();
                 document.getElementById("habitForm").reset();
             }
+
+
+
 
 
             document.getElementById("habitForm").addEventListener("submit", handleFormSubmit);
             updateTotals();
         });
 
-
+        //Scripts on Load
+        hideAllTables();//Garante que todas as tabelas começem escondidas
     </script>
 
 </body>

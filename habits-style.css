@@ -146,4 +146,20 @@ tr:hover {
 .chevron:hover{
     cursor: pointer;
 }
+
+.retrive{
+    cursor: pointer;
+    color:rgb(206, 177, 11);
+    font-size: 120%;
+    display: flex;
+    justify-content: end;
+}
+
+.save{
+    cursor: pointer;
+    color:#45a049;
+    font-size: 120%;
+    display: flex;
+    justify-content: end;
+}
 /*class*/
