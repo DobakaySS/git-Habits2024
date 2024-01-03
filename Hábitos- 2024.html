@@ -156,11 +156,11 @@
             <input type="number" id="hoursInput" name="hours" min="0" step="0.5" required>
 
             <div id="addButton"><button type="submit">Adicionar</button></div>
-            
-                <h2 class= "save" onclick="savingData()">Salvar<h1>
-            
-                <h2 class= "retrive" onclick="retriveDatainLocalStorage()">Recuperar<h1>
-            
+
+            <h2 class="save" onclick="savingData()">Salvar<h1>
+
+                    <h2 class="retrive" onclick="retriveDatainLocalStorage()">Recuperar<h1>
+
         </form>
     </section>
 
@@ -177,6 +177,7 @@
     <script>
 
         //Global Variables
+        var rowID = 0;
         var habitTotals = {
             philosophy: 0,
             music: 0,
@@ -209,10 +210,12 @@
             updateActivityTable("programing");
         }
 
-        function updateActivityTable(habit) { //Tem um erro na linha 240
+        function updateActivityTable(habit) { 
             const tableBody = document.getElementById(`${habit}TableBody`);
             tableBody.innerHTML = "";
             let habitName = "";
+
+
 
             //Esse Switch é para passar o valor da variável habit (prenchida no form) para o nome em portugues que será inserido na tabela, usando a variável habitName
             switch (habit) {
@@ -244,33 +247,72 @@
                     <td>${entry.time}</td>
                     <td>${entry.hours.toFixed(1)}</td>
                     <td>
-                        <button  onclick="editRow(${habit}Table, 2)">Editar</button>
-                        <button  onclick="deleteRow(${habit}Table, 2)">Excluir</button>
+                        <button  onclick="editRow(${habit}, ${entry.rowID})">Editar</button>
+                        <button  onclick="deleteRow(${habit}, ${entry.rowID})">Excluir</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
             });
         }
 
+
         function editRow(tableId, rowIndex) {
-            //implementar lógica;
-            alert(`Editar linha ${rowIndex} na tabela ${tableId}`);
+            for (var habit in activityLogs) {
+                if (activityLogs.hasOwnProperty(habit)) {
+                    // Loop através de cada entrada no array do hábito
+                    var entries = activityLogs[habit];
+                    for (var i = 0; i < entries.length; i++) {
+                        var entry = entries[i];
+                        if (entry.rowID == rowIndex) {
+                            // Modifica os valores das células
+                            var updatedDate = prompt("Novo valor para Data:", entry.date);
+                            var updatedTime = prompt("Novo valor para Horário:", entry.time);
+                            var updatedHours = prompt("Novo valor para Horas:", entry.hours);
+                            //Faz o calculo matemático que exclui do total de horas dedicadas o total de horas que aquela entrada tinha
+                            habitTotals[habit] = parseFloat(habitTotals[habit]) - (parseFloat(entry.hours) - parseFloat(updatedHours));
+
+                            // Atualiza os valores da entrada
+                            entry.date = updatedDate || entry.date; //utilizando um short-circuit evaluation para integridade dos dados
+                            entry.time = updatedTime || entry.time; //utilizando um short-circuit evaluation para integridade dos dados
+                            
+                            entry.hours = parseFloat(updatedHours) || entry.hours;
+                            
+                            //Atualiza a tabela automáticamente
+                            updateTotals();
+                            //Salva os dados após a alteração
+                            savingData();
+                        }
+
+                    }
+                }
+            }
         }
 
-
-        function deleteRow(tableId, rowIndex) { //Ainda não funciona por causa da lógica errada na função updateActivityTable
+        function deleteRow(habit, rowIndex) {
             // Obter referência para a tabela
-            var table = document.getElementById(tableId);
+            var table = document.getElementById(habit + "Table");
+            //Loop percorrendo todas os dados de cada hábito
+            for (var habit in activityLogs) {
+                if (activityLogs.hasOwnProperty(habit)) {
+                    // Loop através de cada entrada no array do hábito
+                    var entries = activityLogs[habit];
+                    for (var i = 0; i < entries.length; i++) {
+                        var entry = entries[i];
+                        if (entry.rowID == rowIndex) {
+                            //Faz o calculo matemático que exclui do total de horas dedicadas o total de horas que aquela entrada tinha
+                            habitTotals[habit] = parseFloat(habitTotals[habit]) - parseFloat(entry.hours);
+                            //Exclui as informações dessa entrada
+                            entries.splice(i, 1);
+                            //Atualiza a tabela automáticamente
+                            updateTotals();
+                            //Salva os dados após a alteração
+                            savingData();
+                        }
 
-            // Verificar se o índice da linha está dentro dos limites da tabela
-            if (rowIndex >= 0 && rowIndex < table.rows.length) {
-                // Remover a linha
-                table.deleteRow(rowIndex);
-
-                alert(`Excluir linha ${rowIndex} na tabela ${tableId}`);
-            } else {
-                alert(`Índice de linha inválido para exclusão na tabela ${tableId}`);
+                    }
+                }
             }
+
         }
 
 
@@ -279,10 +321,11 @@
             // Converter os objetos para strings JSON
             var habitTotalsJSON = JSON.stringify(habitTotals);
             var activityLogsJSON = JSON.stringify(activityLogs);
-
+            var rowIDJSON = JSON.stringify(rowID);
             // Salvar dados no localStorage
             localStorage.setItem("habitTotals", habitTotalsJSON);
             localStorage.setItem("activityLogs", activityLogsJSON);
+            localStorage.setItem("rowID", rowIDJSON);
 
             console.log("Dados salvos no localStorage com sucesso!");
         }
@@ -302,6 +345,7 @@
             }
             updateTotals();
         }
+
 
         function hideAllTables() {
             document.getElementById("philosophyTable").classList.toggle("hidden");
@@ -368,7 +412,10 @@
                     date,
                     time,
                     hours,
+                    rowID,
+
                 });
+                rowID++;
                 updateTotals();
                 document.getElementById("habitForm").reset();
             }
@@ -384,7 +431,6 @@
         //Scripts on Load
         hideAllTables();//Garante que todas as tabelas começem escondidas
     </script>
-
 </body>
 
 </html>
