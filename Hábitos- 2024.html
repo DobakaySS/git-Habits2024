@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Hábitos</title>
     <link rel="stylesheet" href="habits-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap">
 </head>
 
 <body>
@@ -141,7 +142,7 @@
     </section>
 
     <section id="addTime">
-        <h2>Adicionar Tempo</h2>
+        <h2>Adicionar Prática</h2>
         <form id="habitForm">
             <label for="habitSelect">Escolha o Hábito:</label>
             <select id="habitSelect" name="habit">
@@ -157,11 +158,14 @@
 
             <div id="addButton"><button type="submit">Adicionar</button></div>
 
-            <h2 class="save" onclick="savingData()">Salvar<h1>
-
-                    <h2 class="retrive" onclick="retriveDatainLocalStorage()">Recuperar<h1>
-
         </form>
+    </section>
+
+    <section id="data">
+        <h2>Dados</h2>
+        <div id="saveButton"> <button class="save" onclick="savingData()">Salvar</button></div>
+        <div id="excludeButton"><button class="retrive" onclick="retriveDatainLocalStorage()">Recuperar</button></div>
+
     </section>
 
     <footer>
@@ -170,7 +174,7 @@
             <a href="https://www.linkedin.com/in/douglas-de-santos-04085a27a/">Linkedin </a>
             <a href="https://github.com/DobakaySS">GitHub</a>
         </nav>
-        &copy; 2023 - Douglas de Sá Santos 22
+        &copy; 2023 - Douglas de Sá Santos
     </footer>
 
     <!-- JavaScript -->
@@ -210,7 +214,7 @@
             updateActivityTable("programing");
         }
 
-        function updateActivityTable(habit) { 
+        function updateActivityTable(habit) {
             const tableBody = document.getElementById(`${habit}TableBody`);
             tableBody.innerHTML = "";
             let habitName = "";
@@ -239,6 +243,7 @@
                     habitName = "Hábito";
             }
 
+            //Preenchendo a tabela
             activityLogs[habit].forEach((entry) => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
@@ -248,7 +253,7 @@
                     <td>${entry.hours.toFixed(1)}</td>
                     <td>
                         <button  onclick="editRow(${habit}, ${entry.rowID})">Editar</button>
-                        <button  onclick="deleteRow(${habit}, ${entry.rowID})">Excluir</button>
+                        <button class="exclude" onclick="deleteRow(${habit}, ${entry.rowID})">Excluir</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -274,9 +279,9 @@
                             // Atualiza os valores da entrada
                             entry.date = updatedDate || entry.date; //utilizando um short-circuit evaluation para integridade dos dados
                             entry.time = updatedTime || entry.time; //utilizando um short-circuit evaluation para integridade dos dados
-                            
+
                             entry.hours = parseFloat(updatedHours) || entry.hours;
-                            
+
                             //Atualiza a tabela automáticamente
                             updateTotals();
                             //Salva os dados após a alteração
@@ -387,9 +392,6 @@
 
 
         document.addEventListener("DOMContentLoaded", function () {
-
-
-
 
             function handleFormSubmit(event) {
                 event.preventDefault();
