@@ -161,13 +161,6 @@
         </form>
     </section>
 
-    <section id="data">
-        <h2>Dados</h2>
-        <div id="saveButton"> <button class="save" onclick="savingData()">Salvar</button></div>
-        <div id="excludeButton"><button class="retrive" onclick="retriveDatainLocalStorage()">Recuperar</button></div>
-
-    </section>
-
     <footer>
         Atualizado em 28/12/2023
         <nav>
@@ -212,6 +205,7 @@
             updateActivityTable("french");
             updateActivityTable("exercise");
             updateActivityTable("programing");
+            savingData();
         }
 
         function updateActivityTable(habit) {
@@ -432,6 +426,7 @@
 
         //Scripts on Load
         hideAllTables();//Garante que todas as tabelas começem escondidas
+        retriveDatainLocalStorage();
     </script>
 </body>
 

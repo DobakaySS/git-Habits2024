@@ -2,8 +2,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    
-    
+       
 }
 header {
     background-color: #333;
@@ -15,9 +14,9 @@ header {
 
 section {
     margin: 20px;
-    border: 1px solid #ddd; /* Add a border around sections */
-    border-radius: 8px; /* Round the corners */
-    padding: 15px; /* Add some padding inside sections */
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 15px; 
 }
 
 h2 {
@@ -53,21 +52,25 @@ input {
 }
 
 button {
-    background-color: #4CAF50;; /* Use a blue color for buttons */
-    border-radius: 5px; /* Round the corners */
-    transition: background-color 0.3s ease; /* Add a smooth transition */
+    background-color: #4CAF50; 
+    border-radius: 5px; 
+    border-color:#4CAF50;
+    transition: background-color 0.3s ease; 
+    font-size: 120%;
+    color:white;
 }
 
 button:hover {
-    background-color: #45a049; /* Darker blue on hover */
+    background-color: #45a049; 
+    cursor: pointer;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    border-radius: 8px; /* Round the corners */
-    overflow: hidden; /* Hide overflowing content */
+    border-radius: 8px; 
+    overflow: hidden; 
 }
 
 th, td {
@@ -77,16 +80,16 @@ th, td {
 }
 
 th {
-    background-color: #2ecc71; /* Use a green color for header cells */
+    background-color: #2ecc71; 
     color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #ecf0f1; /* Alternate row color */
+    background-color: #ecf0f1; 
 }
 
 tr:hover {
-    background-color: #d4e6f1; /* Lighter background on hover */
+    background-color: #d4e6f1; 
 }
 
 
@@ -130,7 +133,7 @@ tr:hover {
     justify-content: center;
 }
 #saveButton {
-    padding-top: 10px;
+    
     padding-bottom: 5px;
     display: flex;
     justify-content: center;
@@ -169,6 +172,7 @@ tr:hover {
 .retrive{
     cursor: pointer;
     background-color:rgb(206, 177, 11);
+    border-color:rgb(206, 177, 11);
     font-size: 120%;
     display: flex;
     justify-content: end;
@@ -180,11 +184,13 @@ tr:hover {
 .save{
     cursor: pointer;
     background-color:#3498db;
+    border-color:#3498db;
     font-size: 120%;
     padding-right: 23px;
     padding-left: 23px;
     display: flex;
     justify-content: end;
+    
 }
 .save:hover{
     background-color: #2980b9;
@@ -192,6 +198,7 @@ tr:hover {
 
 .exclude{
     background-color: #af574c;
+    border-color:#af574c;
 }
 .exclude:hover {
     background-color: #a05046;
